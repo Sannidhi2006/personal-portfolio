@@ -81,8 +81,21 @@ app.use((req, res, next) => {
 // 6. Centralized Error Handler (Must be registered LAST after all routes)
 app.use(errorHandler);
 
+// Process-level guards
+process.on('unhandledRejection', (reason, promise) => {
+  console.warn('⚠️ [Process] Unhandled Rejection at:', promise, 'reason:', reason);
+});
+
+process.on('uncaughtException', (err) => {
+  console.error('💥 [Process] Uncaught Exception:', err);
+});
+
 // 7. Start the Express server
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`🚀 [Server] Backend server running on http://localhost:${PORT}`);
 });
+
+// Keep process active
+setInterval(() => {}, 1000 * 60 * 60);
+
 

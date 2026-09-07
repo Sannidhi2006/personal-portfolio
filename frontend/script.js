@@ -490,72 +490,190 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     5. Contact Form Submission Handling
+     5. Contact Form Submission Handling (with Email Delivery & Feedback)
      ========================================================================== */
   const contactForm = document.querySelector('.contact-form');
   if (contactForm) {
     contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const submitBtn = contactForm.querySelector('button[type="submit"]');
-      const originalBtnText = submitBtn ? submitBtn.textContent : 'Send Message';
+      const originalBtnText = submitBtn ? submitBtn.innerHTML : 'Send Message';
 
       // Remove existing notification
       const existingAlert = contactForm.querySelector('.form-feedback');
       if (existingAlert) existingAlert.remove();
 
-      const name = contactForm.querySelector('#name')?.value?.trim();
-      const email = contactForm.querySelector('#email')?.value?.trim();
-      const message = contactForm.querySelector('#message')?.value?.trim();
+      const nameInput = contactForm.querySelector('#name');
+      const emailInput = contactForm.querySelector('#email');
+      const messageInput = contactForm.querySelector('#message');
 
-      if (!name || !email || !message) return;
+      const name = nameInput?.value?.trim();
+      const email = emailInput?.value?.trim();
+      const message = messageInput?.value?.trim();
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      // Validation
+      if (!name) {
+        showFeedback(contactForm, 'error', '⚠️ Please enter your name.');
+        nameInput?.focus();
+        return;
+      }
+      if (!email || !emailRegex.test(email)) {
+        showFeedback(contactForm, 'error', '⚠️ Please enter a valid email address (e.g., yourname@gmail.com).');
+        emailInput?.focus();
+        return;
+      }
+      if (!message) {
+        showFeedback(contactForm, 'error', '⚠️ Please enter your message.');
+        messageInput?.focus();
+        return;
+      }
 
       if (submitBtn) {
         submitBtn.disabled = true;
-        submitBtn.textContent = 'Sending...';
+        submitBtn.innerHTML = `
+          <span style="display:inline-flex;align-items:center;gap:8px;">
+            <svg style="animation:spin 1s linear infinite;width:18px;height:18px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle><path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"></path></svg>
+            Sending Message...
+          </span>`;
       }
 
-      const feedback = document.createElement('div');
-      feedback.className = 'form-feedback';
-      feedback.style.marginTop = '1rem';
-      feedback.style.padding = '0.75rem 1rem';
-      feedback.style.borderRadius = '8px';
-      feedback.style.fontSize = '0.95rem';
-      feedback.style.fontWeight = '500';
+      let sentSuccessfully = false;
+      let responseMessage = '';
 
       try {
-        const res = await fetch('/api/contact', {
+        // Step 1: Send to local / backend API endpoint
+        const isLocalDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        const apiEndpoint = (isLocalDev && window.location.port !== '5000')
+          ? 'http://localhost:5000/api/contact'
+          : '/api/contact';
+
+        const apiPromise = fetch(apiEndpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ name, email, message })
         });
 
-        const result = await res.json().catch(() => ({}));
+        const timeoutPromise = new Promise((_, reject) =>
+          setTimeout(() => reject(new Error('timeout')), 5000)
+        );
 
-        if (res.ok) {
-          feedback.style.background = 'rgba(34, 197, 94, 0.15)';
-          feedback.style.border = '1px solid rgba(34, 197, 94, 0.4)';
-          feedback.style.color = '#4ade80';
-          feedback.textContent = '✅ Message sent successfully! Thank you for reaching out.';
-          contactForm.reset();
+        const res = await Promise.race([apiPromise, timeoutPromise]).catch(() => null);
+
+        if (res && res.ok) {
+          const result = await res.json().catch(() => ({}));
+          sentSuccessfully = true;
+          responseMessage = result.message || 'Message sent successfully!';
         } else {
-          feedback.style.background = 'rgba(239, 68, 68, 0.15)';
-          feedback.style.border = '1px solid rgba(239, 68, 68, 0.4)';
-          feedback.style.color = '#f87171';
-          feedback.textContent = result.message || '⚠️ Unable to send message. Please try again.';
+          // Step 2: Fallback to FormSubmit for instant real email delivery
+          const formSubmitRes = await fetch('https://formsubmit.co/ajax/kamathshinnu555@gmail.com', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+              name,
+              email,
+              message,
+              _subject: `🚀 Portfolio Message from ${name}`,
+              _replyto: email,
+              _template: 'table',
+              _captcha: 'false',
+              _autoresponse: `Hi ${name},\n\nThank you for reaching out through my portfolio website! I have received your message:\n\n"${message}"\n\nI will review it and get back to you shortly.\n\nBest regards,\nSannidhi Naveen Kamath\nCreative Developer & Tech Enthusiast\nEmail: kamathshinnu555@gmail.com`
+            })
+          });
+
+          if (formSubmitRes.ok) {
+            sentSuccessfully = true;
+            responseMessage = 'Message delivered successfully!';
+          } else {
+            throw new Error('Both API and fallback service failed');
+          }
         }
       } catch (err) {
-        feedback.style.background = 'rgba(239, 68, 68, 0.15)';
-        feedback.style.border = '1px solid rgba(239, 68, 68, 0.4)';
-        feedback.style.color = '#f87171';
-        feedback.textContent = '⚠️ Network error. Please try again later or reach out directly via email.';
-      } finally {
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.textContent = originalBtnText;
+        console.warn('Direct submission error, attempting FormSubmit fallback:', err);
+        try {
+          const formSubmitRes = await fetch('https://formsubmit.co/ajax/kamathshinnu555@gmail.com', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+              name,
+              email,
+              message,
+              _subject: `🚀 Portfolio Message from ${name}`,
+              _replyto: email,
+              _template: 'table',
+              _captcha: 'false',
+              _autoresponse: `Hi ${name},\n\nThank you for reaching out through my portfolio website! I have received your message:\n\n"${message}"\n\nI will review it and get back to you shortly.\n\nBest regards,\nSannidhi Naveen Kamath\nCreative Developer & Tech Enthusiast\nEmail: kamathshinnu555@gmail.com`
+            })
+          });
+          if (formSubmitRes.ok) {
+            sentSuccessfully = true;
+            responseMessage = 'Message delivered successfully!';
+          }
+        } catch (secondaryErr) {
+          console.error('All submission attempts failed:', secondaryErr);
         }
-        contactForm.appendChild(feedback);
+      }
+
+      if (sentSuccessfully) {
+        showFeedback(
+          contactForm,
+          'success',
+          `✅ <strong>Message Sent Successfully!</strong><br><span style="font-size:0.88rem;opacity:0.95;">A confirmation copy has been dispatched to <strong>${email}</strong>. Sannidhi will review your note and get back to you shortly.</span>`
+        );
+        contactForm.reset();
+
+        // Trigger celebratory visual sparks if canvas is active
+        if (typeof window.triggerSparks === 'function') {
+          const rect = submitBtn ? submitBtn.getBoundingClientRect() : { left: window.innerWidth / 2, top: window.innerHeight / 2, width: 0, height: 0 };
+          window.triggerSparks(rect.left + rect.width / 2, rect.top + rect.height / 2, 60);
+        }
+      } else {
+        const mailtoLink = `mailto:kamathshinnu555@gmail.com?subject=${encodeURIComponent('Portfolio Contact from ' + name)}&body=${encodeURIComponent(message + '\n\nFrom: ' + name + ' (' + email + ')')}`;
+        showFeedback(
+          contactForm,
+          'error',
+          `⚠️ <strong>Unable to send message directly.</strong><br><span style="font-size:0.88rem;">Please check your connection or <a href="${mailtoLink}" style="color:#38bdf8;text-decoration:underline;font-weight:600;">click here to email kamathshinnu555@gmail.com directly</a>.</span>`
+        );
+      }
+
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnText;
       }
     });
+  }
+
+  function showFeedback(form, type, htmlContent) {
+    const feedback = document.createElement('div');
+    feedback.className = 'form-feedback';
+    feedback.style.marginTop = '1.25rem';
+    feedback.style.padding = '0.9rem 1.2rem';
+    feedback.style.borderRadius = '12px';
+    feedback.style.fontSize = '0.95rem';
+    feedback.style.lineHeight = '1.5';
+    feedback.style.animation = 'feedbackFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+
+    if (type === 'success') {
+      feedback.style.background = 'linear-gradient(135deg, rgba(34, 197, 94, 0.18), rgba(16, 185, 129, 0.08))';
+      feedback.style.border = '1px solid rgba(74, 222, 128, 0.45)';
+      feedback.style.color = '#86efac';
+      feedback.style.boxShadow = '0 8px 24px rgba(34, 197, 94, 0.15)';
+    } else {
+      feedback.style.background = 'linear-gradient(135deg, rgba(239, 68, 68, 0.18), rgba(220, 38, 38, 0.08))';
+      feedback.style.border = '1px solid rgba(248, 113, 113, 0.45)';
+      feedback.style.color = '#fca5a5';
+      feedback.style.boxShadow = '0 8px 24px rgba(239, 68, 68, 0.15)';
+    }
+
+    feedback.innerHTML = htmlContent;
+    form.appendChild(feedback);
   }
 
   /* ==========================================================================

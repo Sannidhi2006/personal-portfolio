@@ -72,10 +72,10 @@ document.addEventListener('DOMContentLoaded', () => {
     showFormStatus('loading', '⏳ Sending your message...');
 
     try {
-      // API_BASE_URL is defined in js/main.js (loaded before this script)
-      const baseUrl = typeof API_BASE_URL !== 'undefined'
-        ? API_BASE_URL
-        : 'http://localhost:5000/api';
+      const isLocalDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+      const baseUrl = (isLocalDev && window.location.port !== '5000')
+        ? 'http://localhost:5000/api'
+        : '/api';
 
       const response = await fetch(`${baseUrl}/contact`, {
         method: 'POST',
@@ -83,29 +83,46 @@ document.addEventListener('DOMContentLoaded', () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ name, email, message }),
+      }).catch(() => null);
+
+      if (response && response.ok) {
+        const result = await response.json().catch(() => ({}));
+        showFormStatus('success', '✅ Thank you! Your message has been sent. A confirmation has been dispatched to your email.');
+        form.reset();
+        clearAllErrors();
+        return;
+      }
+
+      // Cloud Fallback
+      const formSubmitRes = await fetch('https://formsubmit.co/ajax/kamathshinnu555@gmail.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          name,
+          email,
+          message,
+          _subject: `🚀 Portfolio Message from ${name}`,
+          _replyto: email,
+          _template: 'table',
+          _captcha: 'false',
+          _autoresponse: `Hi ${name},\n\nThank you for reaching out through my portfolio website! I have received your message:\n\n"${message}"\n\nI will review it and get back to you shortly.\n\nBest regards,\nSannidhi Naveen Kamath\nCreative Developer & Tech Enthusiast\nEmail: kamathshinnu555@gmail.com`
+        })
       });
 
-      const result = await response.json();
-
-      // ── 4. SUCCESS PATH ──────────────────────────────────────────────────────
-      if (response.ok && result.success) {
-        showFormStatus('success', '✅ Thank you! Your message has been received. I\'ll be in touch soon.');
+      if (formSubmitRes.ok) {
+        showFormStatus('success', '✅ Thank you! Your message has been sent. A confirmation has been dispatched to your email.');
         form.reset();
         clearAllErrors();
       } else {
-        // ── 5. BACKEND VALIDATION ERROR (400 etc.) ───────────────────────────
-        const errMsg = result.message || 'Something went wrong. Please check your input and try again.';
-        showFormStatus('error', `❌ ${errMsg}`);
+        throw new Error('Fallback failed');
       }
     } catch (networkError) {
-      // ── 6. NETWORK ERROR (server down, no internet, etc.) ───────────────────
-      console.error('❌ [Contact] Network request failed:', networkError);
+      console.error('❌ [Contact] Error submitting form:', networkError);
       showFormStatus(
         'error',
-        '❌ Unable to reach the server. Please check your connection and try again later.'
+        '⚠️ Unable to deliver message directly. Please email kamathshinnu555@gmail.com or try again.'
       );
     } finally {
-      // Always re-enable the submit button so user can retry
       setLoadingState(false, submitBtn, btnText);
     }
   });
