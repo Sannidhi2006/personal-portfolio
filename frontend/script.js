@@ -625,7 +625,7 @@ document.addEventListener('DOMContentLoaded', () => {
         showFeedback(
           contactForm,
           'success',
-          `✅ <strong>Message Sent Successfully!</strong><br><span style="font-size:0.88rem;opacity:0.95;">A confirmation copy has been dispatched to <strong>${email}</strong>. Sannidhi will review your note and get back to you shortly.</span>`
+          `✅ <strong>Message Sent Successfully!</strong><br><span style="font-size:0.88rem;opacity:0.95;"> </strong></span>`
         );
         contactForm.reset();
 
