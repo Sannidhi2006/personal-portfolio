@@ -26,8 +26,8 @@ const projectsToSeed = [
     title: 'ATM Banking Management System',
     description: 'A simulation of ATM operations with secure transaction handling, account management, and real-time balance updates.',
     technologies: ['JavaScript', 'Node.js', 'SQL', 'Docker'],
-    github_url: 'https://github.com/Sannidhi2006/apex-atm-simulator',
-    live_url: 'https://web-weld-one-42.vercel.app/',
+    github_url: 'https://github.com/Sannidhi2006/apex-atm-simulator-demo',
+    live_url: 'https://apex-atm-simulator-demo.vercel.app/',
     image: '',
     order: 3
   }

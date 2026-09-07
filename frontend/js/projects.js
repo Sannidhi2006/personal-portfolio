@@ -29,8 +29,8 @@ const fallbackProjects = [
     title: 'ATM Banking Management System',
     description: 'A simulation of ATM operations with secure transaction handling.',
     technologies: ['JavaScript', 'Node.js', 'SQL', 'Docker'],
-    github_url: 'https://github.com/Sannidhi2006/apex-atm-simulator',
-    live_url: 'https://web-weld-one-42.vercel.app/'
+    github_url: 'https://github.com/Sannidhi2006/apex-atm-simulator-demo',
+    live_url: 'https://apex-atm-simulator-demo.vercel.app/'
   }
 ];
 
@@ -80,16 +80,14 @@ function renderProjectCards(container, projects) {
         ${techBadges}
       </ul>
       <div class="project-links">
-        ${
-          project.github_url
-            ? `<a href="${escapeHTML(project.github_url)}" target="_blank" rel="noopener noreferrer" class="btn-primary">GitHub</a>`
-            : ''
-        }
-        ${
-          project.live_url
-            ? `<a href="${escapeHTML(project.live_url)}" target="_blank" rel="noopener noreferrer" class="btn-secondary">Live Demo</a>`
-            : ''
-        }
+        ${project.github_url
+        ? `<a href="${escapeHTML(project.github_url)}" target="_blank" rel="noopener noreferrer" class="btn-primary">GitHub</a>`
+        : ''
+      }
+        ${project.live_url
+        ? `<a href="${escapeHTML(project.live_url)}" target="_blank" rel="noopener noreferrer" class="btn-secondary">Live Demo</a>`
+        : ''
+      }
       </div>
     `;
 

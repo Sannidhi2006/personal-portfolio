@@ -402,7 +402,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
-  
+
   if (projectsGrid) {
     const escapeHTML = (str) => {
       if (!str) return '';
@@ -420,7 +420,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const techBadgesHtml = Array.isArray(project.technologies)
           ? project.technologies.map(tech => `<li>${escapeHTML(tech)}</li>`).join('')
           : '';
-          
+
         const article = document.createElement('article');
         article.className = 'project-card';
         article.innerHTML = `
@@ -462,8 +462,8 @@ document.addEventListener('DOMContentLoaded', () => {
         title: 'ATM Banking Management System',
         description: 'A simulation of ATM operations with secure transaction handling, account management, and real-time balance updates.',
         technologies: ['JavaScript', 'Node.js', 'SQL', 'Docker'],
-        github_url: 'https://github.com/Sannidhi2006/apex-atm-simulator',
-        live_url: 'https://web-weld-one-42.vercel.app/'
+        github_url: 'https://github.com/Sannidhi2006/apex-atm-simulator-demo',
+        live_url: 'https://apex-atm-simulator-demo.vercel.app/'
       }
     ];
 
@@ -474,7 +474,7 @@ document.addEventListener('DOMContentLoaded', () => {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        
+
         if (Array.isArray(data) && data.length > 0) {
           renderProjects(data);
         } else {
