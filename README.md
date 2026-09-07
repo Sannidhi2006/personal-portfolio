@@ -1,16 +1,16 @@
-# Full-Stack Developer Portfolio
+# Sannidhi Naveen Kamath — Personal Portfolio
 
-A responsive, high-performance personal portfolio website built with a modern decoupled full-stack architecture. Features dynamic project showcases powered by a Node.js/Express REST API and MongoDB Atlas, responsive design with CSS custom properties and glassmorphism, asynchronous contact form submission with client and server input validation, rate limiting, and smooth scroll animations.
+A responsive, modern full-stack developer portfolio featuring an interactive 3D landing screen, dynamic project retrieval powered by MongoDB Atlas, accessible navigation with keyboard support, and contact message persistence via REST APIs.
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Frontend:** Semantic HTML5, Vanilla CSS3 (Custom Properties, CSS Grid, Flexbox, Glassmorphism), Vanilla JavaScript ES6+ (Fetch API, Intersection Observer, DOM API). *Zero frontend frameworks or build tools.*
-- **Backend:** Node.js, Express.js (REST API architecture, Route Controllers, Modular Router).
-- **Database:** MongoDB Atlas (Cloud Database) via Mongoose ODM.
-- **Security & Utilities:** Helmet (HTTP security headers), CORS (Cross-Origin Resource Sharing), Express-Rate-Limit (anti-spam protection), Dotenv (environment configuration), Nodemon (development server).
-- **Hosting & Deployment:** Netlify (Frontend Static Hosting) & Render (Backend Web Service).
+- **Frontend:** HTML5, Vanilla CSS3 (CSS Custom Properties, Glassmorphism, Responsive Grid, Flexbox), Modern Vanilla JavaScript (Canvas 2D, Fetch API, DOM manipulation).
+- **Backend:** Node.js, Express.js (REST API architecture, rate limiting, security headers, centralized error handler).
+- **Database:** MongoDB Atlas (Cloud NoSQL Database) with Mongoose ODM.
+- **Security & Optimization:** Helmet (security headers), CORS, Express-Rate-Limit, Dotenv, DNS resolution fallback.
+- **Hosting & Deployment:** Netlify (Frontend), Render (Backend), MongoDB Atlas (Database).
 
 ---
 
@@ -20,311 +20,160 @@ A responsive, high-performance personal portfolio website built with a modern de
 portfolio/
 ├── backend/
 │   ├── config/
-│   │   └── db.js            # Mongoose connection logic with offline fallback
+│   │   └── db.js                 # MongoDB connection & DNS resolver configuration
 │   ├── controllers/
-│   │   ├── projectController.js # Projects business logic (getAll, getById)
-│   │   └── contactController.js # Contact form message handling
+│   │   ├── projectController.js  # GET /api/projects controller
+│   │   └── contactController.js  # POST /api/contact controller
 │   ├── middleware/
-│   │   ├── errorHandler.js  # Centralized 4-argument Express error handler
-│   │   └── validate.js      # Input validation for contact form submissions
+│   │   ├── errorHandler.js       # Centralized JSON error handler
+│   │   └── validate.js           # Contact form payload validator
 │   ├── models/
-│   │   ├── Project.js       # Project Mongoose schema and model
-│   │   └── Message.js       # Contact message Mongoose schema with email regex
+│   │   ├── Project.js            # Project schema (title, description, technologies, URLs, order)
+│   │   └── Message.js            # Contact message schema
 │   ├── routes/
-│   │   ├── projects.js      # GET /api/projects and GET /api/projects/:id
-│   │   └── contact.js       # POST /api/contact with rate limiting
+│   │   ├── projects.js           # /api/projects routes
+│   │   └── contact.js            # /api/contact route with rate limiting
 │   ├── seed/
-│   │   └── seedProjects.js  # Database seeder script with 3 sample projects
-│   ├── .env.example         # Environment variables template
-│   ├── .gitignore           # Backend ignore rules (node_modules, .env)
-│   ├── package.json         # Dependencies and lifecycle scripts
-│   └── server.js            # Express application entry point
+│   │   └── seedProjects.js       # Idempotent database seeder (upsert on title)
+│   ├── package.json              # Backend dependencies and scripts
+│   └── server.js                 # Express server entry point & static asset server
 ├── frontend/
 │   ├── assets/
-│   │   ├── images/          # Profile and project graphics
-│   │   └── resume/          # Downloadable resume PDF
-│   ├── css/
-│   │   ├── style.css        # Theme variables, typography, layout & components
-│   │   └── responsive.css   # Breakpoint media queries (mobile/tablet/desktop)
-│   ├── js/
-│   │   ├── main.js          # API config, mobile hamburger menu, scroll animations
-│   │   ├── projects.js      # Dynamic project fetching, card rendering & error states
-│   │   └── contact.js       # Form validation, AJAX submission & live status feedback
-│   ├── index.html           # Semantic one-page portfolio layout
-│   └── netlify.toml         # Netlify static publishing configuration
-├── netlify.toml             # Root Netlify configuration
-├── .gitignore               # Root Git ignore rules
-└── README.md                # Project documentation and deployment guide
+│   │   ├── images/               # Profile photo (profile.jpg)
+│   │   └── resume/               # Resume PDF (resume.pdf)
+│   ├── index.html                # Main SPA landing page and sections
+│   ├── style.css                 # Design system tokens, 3D landing, responsive layout
+│   └── script.js                 # Canvas engine, parallax, dynamic fetch & form handling
+├── .env                          # Environment variables (MongoDB URI & Port)
+├── package.json                  # Root npm scripts
+├── netlify.toml                  # Netlify deployment configuration
+└── README.md                     # Documentation and setup guide
 ```
 
 ---
 
-## 🚀 Local Development Setup
+## 🚀 Getting Started Locally
 
 ### 1. Prerequisites
 - **Node.js** (v18 or higher recommended)
 - **npm** (comes with Node.js)
-- **Git**
+- A **MongoDB Atlas** cluster URI (or local MongoDB instance)
 
-### 2. Installation & Backend Setup
+### 2. Environment Setup (`.env`)
+Create a `.env` file in the project root directory with the following variables:
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/YOUR_USERNAME/portfolio.git
-   cd portfolio
-   ```
-
-2. **Install backend dependencies:**
-   ```bash
-   cd backend
-   npm install
-   ```
-
-3. **Configure environment variables:**
-   Create a `.env` file inside the `backend/` directory based on `.env.example`:
-   ```bash
-   cp .env.example .env
-   ```
-   Open `backend/.env` and configure:
-   ```env
-   # MongoDB Atlas Connection String
-   MONGO_URI=mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/portfolio?retryWrites=true&w=majority
-
-   # Server Port (Defaults to 5000)
-   PORT=5000
-   ```
-   *(Note: If `MONGO_URI` is left blank during offline testing, the server gracefully serves sample project data and accepts messages without crashing).*
-
-4. **Seed the database (Optional but recommended):**
-   ```bash
-   npm run seed
-   ```
-
-5. **Start the backend development server:**
-   ```bash
-   npm run dev
-   ```
-   The API will start at `http://localhost:5000` with Nodemon auto-reloading.
-
-### 3. Frontend Setup
-
-In a new terminal window, serve the `frontend/` folder:
-- Using Python:
-  ```bash
-  cd frontend
-  python -m http.server 3000
-  ```
-- Or using Node's `npx serve`:
-  ```bash
-  npx serve frontend -p 3000
-  ```
-- Or open `frontend/index.html` with VS Code **Live Server** (Port 5500).
-
-Open your browser at **`http://localhost:3000`** (or your local server address).
-
----
-
-## 📡 REST API Documentation
-
-### Base URL
-- **Local:** `http://localhost:5000/api`
-- **Production:** `https://your-render-app.onrender.com/api`
-
----
-
-### 1. Health Check
-Checks if the backend server is operational.
-
-* **URL:** `GET /api/health`
-* **Headers:** None
-* **Success Response (`200 OK`):**
-  ```json
-  {
-    "status": "ok"
-  }
-  ```
-
----
-
-### 2. Get All Projects
-Fetches all portfolio projects sorted by creation date descending.
-
-* **URL:** `GET /api/projects`
-* **Method:** `GET`
-* **Success Response (`200 OK`):**
-  ```json
-  {
-    "success": true,
-    "count": 3,
-    "data": [
-      {
-        "_id": "65f000000000000000000001",
-        "title": "E-Commerce Platform",
-        "description": "A full-stack e-commerce web application with product search, category filtering, persistent shopping cart, and secure Stripe checkout workflow.",
-        "techStack": ["Node.js", "Express", "MongoDB", "JavaScript", "CSS3", "Stripe API"],
-        "imageUrl": "https://images.unsplash.com/photo-1557821552-17105176677c?auto=format&fit=crop&w=800&q=80",
-        "githubUrl": "https://github.com/example/ecommerce-platform",
-        "liveUrl": "https://ecommerce-platform-demo.netlify.app",
-        "featured": true,
-        "createdAt": "2026-03-01T10:00:00.000Z"
-      }
-    ]
-  }
-  ```
-
----
-
-### 3. Get Single Project by ID
-Retrieves details of a specific project by its MongoDB ObjectId.
-
-* **URL:** `GET /api/projects/:id`
-* **Method:** `GET`
-* **Success Response (`200 OK`):**
-  ```json
-  {
-    "success": true,
-    "data": {
-      "_id": "65f000000000000000000001",
-      "title": "E-Commerce Platform",
-      "description": "A full-stack e-commerce web application...",
-      "techStack": ["Node.js", "Express", "MongoDB", "JavaScript", "CSS3"],
-      "imageUrl": "https://images.unsplash.com/photo-1557821552-17105176677c?auto=format&fit=crop&w=800&q=80",
-      "githubUrl": "https://github.com/example/ecommerce-platform",
-      "liveUrl": "https://ecommerce-platform-demo.netlify.app",
-      "featured": true,
-      "createdAt": "2026-03-01T10:00:00.000Z"
-    }
-  }
-  ```
-* **Error Response (`404 Not Found`):**
-  ```json
-  {
-    "success": false,
-    "message": "Project not found with id: 65f000000000000000000999"
-  }
-  ```
-
----
-
-### 4. Submit Contact Message
-Validates and saves a contact form submission to MongoDB. Protected by rate limiting (max 5 submissions per 15 minutes per IP).
-
-* **URL:** `POST /api/contact`
-* **Method:** `POST`
-* **Headers:** `Content-Type: application/json`
-* **Request Body:**
-  ```json
-  {
-    "name": "Alex Smith",
-    "email": "alex.smith@example.com",
-    "message": "Hello! I saw your portfolio and would like to connect about an internship opportunity."
-  }
-  ```
-* **Success Response (`201 Created`):**
-  ```json
-  {
-    "success": true,
-    "message": "Message received",
-    "data": {
-      "id": "6a96bc162a3a409b242faf5e",
-      "name": "Alex Smith",
-      "email": "alex.smith@example.com",
-      "createdAt": "2026-09-01T11:50:46.917Z"
-    }
-  }
-  ```
-* **Validation Error Response (`400 Bad Request`):**
-  ```json
-  {
-    "success": false,
-    "message": "Please provide a valid email address."
-  }
-  ```
-* **Rate Limit Exceeded Response (`429 Too Many Requests`):**
-  ```json
-  {
-    "success": false,
-    "message": "Too many messages sent from this IP, please try again after 15 minutes."
-  }
-  ```
-
----
-
-## 🌐 Production Deployment Guide
-
-Follow these steps to deploy both frontend and backend for free:
-
-### Step 1: MongoDB Atlas Setup
-1. Go to [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/register) and create a free `M0` cluster.
-2. In **Database Access**, create a user with a secure password.
-3. In **Network Access**, add `0.0.0.0/0` (Allow access from anywhere).
-4. Click **Connect** > **Drivers** > **Node.js** and copy your connection string:
-   ```text
-   mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/portfolio?retryWrites=true&w=majority
-   ```
-
-### Step 2: Push Project to GitHub
-Initialize your local git repository and push to GitHub:
-```bash
-git init
-git add .
-git commit -m "feat: complete full-stack portfolio website"
-git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git
-git push -u origin main
+```env
+PORT=5000
+MONGODB_URI=mongodb+srv://<username>:<password>@<cluster-url>.mongodb.net/?retryWrites=true&w=majority
 ```
 
-### Step 3: Deploy Backend on Render
-1. Sign up at [Render.com](https://render.com/).
-2. Click **New +** > **Web Service** and connect your GitHub repository.
+> **Note on Special Characters:** If your MongoDB password contains characters such as `@`, `#`, or `$`, the database configuration automatically handles URI encoding.
+
+---
+
+### 3. Running the Backend
+
+From the project root directory:
+
+```powershell
+# Install backend dependencies (if running for the first time)
+cd backend
+npm install
+cd ..
+
+# Run the database seeder to populate the 3 real projects
+npm run seed
+
+# Start the server (runs on http://localhost:5000)
+npm start
+```
+
+### 4. Running the Frontend
+
+- **Option A (Integrated):** The Express server at `http://localhost:5000` automatically serves the frontend. Simply open `http://localhost:5000` in your browser.
+- **Option B (Live Server / Static):** You can also open `frontend/index.html` with VS Code Live Server (port `5500` or `3000`). The backend supports full CORS requests across origins.
+
+---
+
+## ☁️ Deployment Guide
+
+### 1. Database: MongoDB Atlas
+1. Create a free cluster at [MongoDB Atlas](https://www.mongodb.com/cloud/atlas).
+2. Under **Network Access**, add `0.0.0.0/0` (Allow access from anywhere).
+3. Under **Database Access**, create a database user with read/write permissions.
+4. Obtain your connection string (`mongodb+srv://...`) and set it in your hosting platform environment variables.
+
+### 2. Backend: Render
+1. Create a new **Web Service** on [Render](https://render.com).
+2. Connect your GitHub repository.
 3. Configure the service:
-   - **Name:** `portfolio-api`
    - **Root Directory:** `backend`
-   - **Environment:** `Node`
    - **Build Command:** `npm install`
    - **Start Command:** `npm start`
 4. Under **Environment Variables**, add:
-   - `MONGO_URI` = `your_mongodb_atlas_connection_string`
-   - `NODE_ENV` = `production`
-5. Click **Create Web Service**.
-6. Copy your deployed Render URL (e.g., `https://portfolio-api.onrender.com`).
+   - `MONGODB_URI`: your MongoDB Atlas connection string.
+   - `PORT`: `5000` (or leave default).
 
-### Step 4: Deploy Frontend on Netlify
-1. Sign up at [Netlify.com](https://www.netlify.com/).
-2. Click **Add new site** > **Import an existing project** > **GitHub**.
-3. Select your portfolio repository.
-4. Configure build settings:
-   - **Base directory:** `frontend` (or leave blank if using root `netlify.toml`)
-   - **Publish directory:** `.` (or `frontend`)
-   - **Build command:** *(leave empty)*
-5. Click **Deploy Site**.
-6. Copy your deployed Netlify URL (e.g., `https://my-portfolio.netlify.app`).
-
-### Step 5: Final URL Synchronization
-1. Open [`frontend/js/main.js`](frontend/js/main.js) and update `API_BASE_URL` with your Render URL:
-   ```javascript
-   const API_BASE_URL = 'https://portfolio-api.onrender.com/api';
+### 3. Frontend: Netlify
+1. Create a new site on [Netlify](https://www.netlify.com).
+2. Connect your GitHub repository.
+3. Configure build settings:
+   - **Base directory:** `frontend`
+   - **Publish directory:** `frontend`
+4. If your backend is hosted separately on Render, update the API base URL in `frontend/script.js` or set up Netlify rewrites in `netlify.toml`:
+   ```toml
+   [[redirects]]
+     from = "/api/*"
+     to = "https://your-render-backend.onrender.com/api/:splat"
+     status = 200
+     force = true
    ```
-2. Open [`backend/server.js`](backend/server.js) and ensure your Netlify domain is allowed in CORS.
-3. Commit and push the changes:
-   ```bash
-   git add frontend/js/main.js backend/server.js
-   git commit -m "chore: configure production URLs for Netlify and Render"
-   git push
-   ```
-Netlify and Render will automatically trigger new builds and go live!
 
 ---
 
-## 🔮 Known Limitations & Future Improvements
+## ➕ Adding a Fourth Project to MongoDB
 
-- **Admin Dashboard:** Adding an authenticated dashboard (JWT / OAuth) for creating, updating, and deleting projects directly through a web interface without database scripts.
-- **Email Notifications:** Integrating Nodemailer or SendGrid to send automatic email alerts to your inbox whenever a new contact message is submitted.
-- **Blog Section:** Adding a lightweight markdown-powered blog for sharing engineering insights and tutorials.
-- **Dark/Light Theme Toggle:** Adding a client-side theme switcher with `localStorage` persistence.
+You can add additional projects at any time using either of the following methods:
+
+### Method A: Updating the Seed Script
+Open `backend/seed/seedProjects.js` and add your fourth project to the `projectsToSeed` array:
+
+```javascript
+{
+  title: 'My Fourth Awesome Project',
+  description: 'A brief 1-2 sentence description of what the project does.',
+  technologies: ['React', 'TypeScript', 'TailwindCSS', 'Node.js'],
+  github_url: 'https://github.com/Sannidhi2006/my-fourth-project',
+  live_url: 'https://my-fourth-project.vercel.app',
+  image: '',
+  order: 4
+}
+```
+
+Then run:
+```powershell
+npm run seed
+```
+The script will upsert the project into MongoDB Atlas without altering or duplicating existing projects.
+
+### Method B: Directly via MongoDB Atlas Web UI
+1. Go to your cluster in MongoDB Atlas and click **Browse Collections**.
+2. Select the `projects` collection.
+3. Click **Insert Document** and enter the JSON:
+   ```json
+   {
+     "title": "My Fourth Awesome Project",
+     "description": "A brief description of what the project does.",
+     "technologies": ["React", "Node.js", "MongoDB"],
+     "github_url": "https://github.com/Sannidhi2006/my-project",
+     "live_url": "https://my-project.netlify.app",
+     "image": "",
+     "order": 4
+   }
+   ```
+4. Click **Insert**. Refresh your portfolio website — the new project card will appear automatically!
 
 ---
 
 ## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
+Created by Sannidhi Naveen Kamath © 2026. All rights reserved.

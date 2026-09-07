@@ -17,38 +17,28 @@ const projectSchema = new mongoose.Schema(
       required: [true, 'Project description is required'],
       trim: true,
     },
-    techStack: {
+    technologies: {
       type: [String],
-      required: [true, 'Tech stack is required'],
-      validate: {
-        validator: function (v) {
-          return Array.isArray(v) && v.length > 0;
-        },
-        message: 'Tech stack must contain at least one technology',
-      },
+      required: [true, 'Technologies are required'],
     },
-    imageUrl: {
+    image: {
       type: String,
       default: '',
       trim: true,
     },
-    githubUrl: {
+    github_url: {
       type: String,
       default: '',
       trim: true,
     },
-    liveUrl: {
+    live_url: {
       type: String,
       default: '',
       trim: true,
     },
-    featured: {
-      type: Boolean,
-      default: false,
-    },
-    createdAt: {
-      type: Date,
-      default: Date.now,
+    order: {
+      type: Number,
+      required: true,
     },
   },
   {

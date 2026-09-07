@@ -1,0 +1,14 @@
+{
+  "name": "sannidhi-portfolio",
+  "version": "1.0.0",
+  "description": "Personal Portfolio for Sannidhi Naveen Kamath",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "seed": "node backend/seed/seedProjects.js",
+    "test": "node -c frontend/script.js backend/server.js backend/config/db.js"
+  },
+  "keywords": ["portfolio", "developer", "engineering"],
+  "author": "Sannidhi Naveen Kamath",
+  "license": "ISC"
+}

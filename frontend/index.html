@@ -1,308 +1,306 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Personal portfolio of Jane Doe, a Full-Stack Developer specializing in Node.js, Express, MongoDB, and modern web applications.">
-  <meta name="keywords" content="Portfolio, Full-Stack Developer, Node.js, Express, MongoDB, JavaScript, HTML, CSS">
-  <meta name="author" content="Jane Doe">
-
-  <title>Jane Doe | Full-Stack Developer</title>
-
-  <!-- Google Fonts Preconnect & Stylesheets -->
+  <title>Sannidhi Naveen Kamath | Creative Developer &amp; Tech Enthusiast</title>
+  <meta name="description"
+    content="Personal portfolio of Sannidhi Naveen Kamath - Engineering Student, Developer &amp; Tech Enthusiast.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-
-  <!-- Core & Responsive Stylesheets -->
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/responsive.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-  <!-- =========================================================
-       1. NAVIGATION BAR
-       ========================================================= -->
-  <header id="header" class="site-header">
-    <nav id="navbar" class="navbar" aria-label="Main Navigation">
-      <div class="nav-container">
-        <!-- Brand Logo / Name -->
-        <a href="#home" class="nav-logo" id="nav-brand">
-          <span class="logo-accent">&lt;</span>Jane Doe<span class="logo-accent">/&gt;</span>
-        </a>
+  <!-- LANDING SCREEN: "Hi there / I'm SANNIDHI" lives ONLY here, never in #main-portfolio -->
+  <section id="landing-screen" class="landing-screen" aria-label="Welcome Screen">
+    <canvas id="bg-canvas" class="bg-canvas" aria-hidden="true"></canvas>
+    <div class="aurora-container" aria-hidden="true">
+      <div class="aurora-blob blob-rose"></div>
+      <div class="aurora-blob blob-amber"></div>
+      <div class="aurora-blob blob-indigo"></div>
+      <div class="aurora-blob blob-cyan"></div>
+      <div class="landing-grain"></div>
+    </div>
+    <div class="perspective-stage">
+      <div class="landing-card" id="landing-card">
+        <div class="card-glare" id="card-glare" aria-hidden="true"></div>
 
-        <!-- Desktop Navigation Links -->
-        <ul id="nav-menu" class="nav-menu">
-          <li class="nav-item"><a href="#home" class="nav-link active">Home</a></li>
-          <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
-          <li class="nav-item"><a href="#skills" class="nav-link">Skills</a></li>
-          <li class="nav-item"><a href="#projects" class="nav-link">Projects</a></li>
-          <li class="nav-item"><a href="#contact" class="nav-link nav-link-cta">Contact</a></li>
-        </ul>
+        <div class="portrait-container animate-item">
+          <!-- 3D Multi-axial Orbital Gyroscope System -->
+          <div class="orbit-system" aria-hidden="true">
+            <div class="orbit-ring orbit-ring-outer"></div>
+            <div class="orbit-ring orbit-ring-mid"></div>
+            <div class="orbit-ring orbit-ring-inner"></div>
+            <div class="orbit-dot dot-rose"></div>
+            <div class="orbit-dot dot-cyan"></div>
+            <div class="orbit-dot dot-amber"></div>
+          </div>
+          <!-- Soft Ambient Volumetric Backlight -->
+          <div class="portrait-ambient-glow" aria-hidden="true"></div>
 
-        <!-- Mobile Hamburger Menu Button (toggled via JS later) -->
-        <button id="hamburger-btn" class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
-          <span class="bar"></span>
-          <span class="bar"></span>
-          <span class="bar"></span>
-        </button>
-      </div>
-    </nav>
-  </header>
-
-  <!-- =========================================================
-       MAIN CONTENT CONTAINER
-       ========================================================= -->
-  <main id="main-content">
-
-    <!-- =======================================================
-         2. HERO SECTION (#home)
-         ======================================================= -->
-    <section id="home" class="section hero-section">
-      <div class="container hero-container">
-        <div class="hero-content">
-          <span class="hero-badge">👋 Hello, I'm</span>
-          <h1 class="hero-title" id="hero-name">Jane Doe</h1>
-          <h2 class="hero-subtitle" id="hero-tagline">Full-Stack Developer</h2>
-          <p class="hero-description">
-            I design and build clean, robust, and user-centric web applications with modern technologies. Passionate about scalable backend systems and responsive web experiences.
-          </p>
-          <div class="hero-cta-group">
-            <a href="#projects" class="btn btn-primary" id="hero-btn-projects">View Projects</a>
-            <a href="assets/resume/resume.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" id="hero-btn-resume">Download Resume</a>
+          <!-- Interactive 3D Holographic Portrait Card -->
+          <div class="portrait-3d-box" id="portrait-box" role="img" aria-label="Interactive 3D Portrait of Sannidhi Naveen Kamath" tabindex="0">
+            <div class="portrait-halo-spin" aria-hidden="true"></div>
+            <div class="portrait-sheen" aria-hidden="true"></div>
+            <img src="assets/images/landing-profile.jpg" alt="Portrait of Sannidhi Naveen Kamath" class="profile-img"
+              width="180" height="180" loading="eager">
+            <div class="portrait-cyber-corners" aria-hidden="true"></div>
+            <div class="portrait-scanline" aria-hidden="true"></div>
           </div>
         </div>
+        <!-- Typography: ONLY on the landing screen -->
+        <div class="intro-typography">
+          <p class="greeting animate-item"><span class="greeting-highlight">Hi there!</span> <span
+              class="wave">&#x1F44B;</span></p>
+          <h1 class="name animate-item">I'm <span class="shimmer-name">SANNIDHI NAVEEN KAMATH</span></h1>
 
-        <div class="hero-media">
-          <div class="hero-image-wrapper">
-            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" alt="Jane Doe - Full-Stack Developer Profile Photo" class="hero-image" id="hero-profile-img">
+        </div>
+        <div class="action-zone animate-item">
+          <button id="enter-btn" class="btn-enter" type="button" aria-label="Enter Portfolio">
+            <span class="btn-shimmer" aria-hidden="true"></span>
+            <span class="btn-text">ENTER MY PORTFOLIO</span>
+            <span class="btn-arrow" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN PORTFOLIO: distinct content only, zero duplication of landing hero -->
+  <main id="main-portfolio" class="main-portfolio" aria-hidden="true" tabindex="-1">
+
+    <!-- Ambient Flowing Aurora Mesh & Film-Grain Texture Layer -->
+    <div class="portfolio-ambient-bg" id="portfolio-ambient-bg" aria-hidden="true">
+      <div class="ambient-aurora-mesh">
+        <div class="aurora-wash wash-rose"></div>
+        <div class="aurora-wash wash-amber"></div>
+        <div class="aurora-wash wash-violet"></div>
+        <div class="aurora-wash wash-cyan"></div>
+        <div class="aurora-wash wash-indigo"></div>
+        <div class="aurora-wash wash-emerald"></div>
+      </div>
+      <div class="ambient-cyber-grid"></div>
+      <div class="ambient-grain"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="portfolio-nav" aria-label="Main Navigation">
+      <div class="nav-container">
+        <a href="#home" class="nav-brand">SANNIDHI NAVEEN KAMATH<span class="brand-dot">.</span></a>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false"
+          aria-controls="nav-menu">
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+        </button>
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="#home" class="nav-link">Home</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#projects" class="nav-link">Projects</a></li>
+          <li><a href="#skills" class="nav-link">Skills</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+          <li><a href="#resume" class="nav-link">Resume</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- HOME: unique content, no "Hi there / I'm SANNIDHI" -->
+    <section id="home" class="section home">
+      <div class="container">
+        <div class="home-inner">
+
+          <h1 class="hero-title">Welcome to my little corner<br>of the internet.</h1>
+          <p class="hero-subtitle">I'm Sannidhi Naveen Kamath &mdash; an engineering student passionate about
+            technology, development,
+            and building meaningful real-world software.</p>
+          <div class="hero-actions">
+            <a href="#projects" class="btn-primary">View My Projects &rarr;</a>
+            <a href="#contact" class="btn-secondary">Let's Connect</a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- =======================================================
-         3. ABOUT SECTION (#about)
-         ======================================================= -->
-    <section id="about" class="section about-section">
+    <!-- ABOUT: two-column layout (bio + facts left, photo visual right) -->
+    <section id="about" class="section about">
       <div class="container">
-        <div class="section-header">
-          <h2 class="section-title" id="about-heading">About Me</h2>
-          <p class="section-subtitle">A glimpse into my background, passion, and aspirations</p>
-        </div>
-
-        <div class="about-container">
-          <div class="about-media">
-            <div class="about-image-wrapper">
-              <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80" alt="Jane Doe working on code" class="about-image" id="about-img">
-            </div>
-          </div>
-
-          <div class="about-content">
-            <h3 class="about-subheading">Building digital experiences from database to interface</h3>
-            <p class="about-text">
-              I am a curious and driven software developer focused on building efficient full-stack applications. With a strong grounding in JavaScript, Node.js, Express, and MongoDB, I love transforming ideas into clean, functional, and maintainable software.
+        <h2 class="section-title">About Me</h2>
+        <div class="about-grid">
+          <div class="about-bio">
+            <p>I'm a B.E. student at <strong>BMS Institute of Technology and Management</strong>, currently holding a
+              CGPA of <strong>9.23</strong>. Before this, I completed my PU at <strong>Arjuna Science PU
+                College</strong> with <strong>93.7%</strong>.</p>
+            <p>My interests span <strong>hackathons</strong>, <strong>AI &amp; ML</strong>,
+              <strong>embedded/IoT</strong>, <strong>full-stack web development</strong>, and <strong>competitive
+                problem-solving</strong>. I'm actively building a strong foundation in <strong>Data Structures &amp;
+                Algorithms</strong> alongside hands-on project work.
             </p>
-            <p class="about-text">
-              Currently seeking internship and junior engineering opportunities where I can contribute to high-impact projects, collaborate with experienced teams, and continually expand my technical skill set.
-            </p>
+            <p>Outside of academics, I enjoy participating in national-level hackathons &mdash; including <strong>Smart
+                India Hackathon</strong> &mdash; and collaborating on projects that solve real, practical problems
+              rather than staying purely theoretical.</p>
 
-            <!-- Quick Facts List -->
-            <div class="quick-facts" id="about-quick-facts">
-              <h4 class="quick-facts-title">Quick Facts</h4>
-              <ul class="quick-facts-list">
-                <li class="quick-fact-item">
-                  <span class="fact-label">📍 Location:</span>
-                  <span class="fact-value">San Francisco, CA (Open to Remote / Relocation)</span>
+            <div class="about-facts-card">
+
+              <ul class="facts-list">
+                <li class="fact-item">
+                  <span class="fact-icon" aria-hidden="true">&#x1F393;</span>
+                  <div class="fact-details">
+                    <span class="fact-label">B.E. &mdash; BMSIT&amp;M</span>
+                    <span class="fact-meta">2024&ndash;2028 &middot; CGPA 9.23</span>
+                  </div>
                 </li>
-                <li class="quick-fact-item">
-                  <span class="fact-label">🎓 Education:</span>
-                  <span class="fact-value">B.S. in Computer Science</span>
-                </li>
-                <li class="quick-fact-item">
-                  <span class="fact-label">💼 Status:</span>
-                  <span class="fact-value">Available for Internships & Full-Time Roles</span>
-                </li>
-                <li class="quick-fact-item">
-                  <span class="fact-label">💡 Interests:</span>
-                  <span class="fact-value">Full-Stack Architecture, RESTful APIs, Cloud Computing</span>
+                <li class="fact-item">
+                  <span class="fact-icon" aria-hidden="true">&#x1F4D8;</span>
+                  <div class="fact-details">
+                    <span class="fact-label">PU &mdash; Arjuna Science PU College</span>
+                    <span class="fact-meta">93.7%</span>
+                  </div>
                 </li>
               </ul>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- =======================================================
-         4. SKILLS SECTION (#skills)
-         ======================================================= -->
-    <section id="skills" class="section skills-section">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title" id="skills-heading">Technical Skills</h2>
-          <p class="section-subtitle">Technologies and tools I utilize to engineer full-stack solutions</p>
-        </div>
+          <div class="about-visual">
+            <div class="about-photo-wrapper">
+              <img src="assets/images/profile.jpg" alt="Sannidhi Naveen Kamath" class="about-profile-img"
+                loading="lazy">
 
-        <!-- Skills Grid Container -->
-        <div id="skills-grid" class="skills-grid">
-          <!-- Skill Card 1 -->
-          <div class="skill-card" id="skill-html">
-            <div class="skill-icon" aria-hidden="true">🌐</div>
-            <h3 class="skill-name">HTML5</h3>
-            <p class="skill-level">Semantic & Accessible</p>
-          </div>
-
-          <!-- Skill Card 2 -->
-          <div class="skill-card" id="skill-css">
-            <div class="skill-icon" aria-hidden="true">🎨</div>
-            <h3 class="skill-name">CSS3</h3>
-            <p class="skill-level">Flexbox, Grid & Responsive</p>
-          </div>
-
-          <!-- Skill Card 3 -->
-          <div class="skill-card" id="skill-js">
-            <div class="skill-icon" aria-hidden="true">⚡</div>
-            <h3 class="skill-name">JavaScript</h3>
-            <p class="skill-level">ES6+, Async/Await, DOM</p>
-          </div>
-
-          <!-- Skill Card 4 -->
-          <div class="skill-card" id="skill-node">
-            <div class="skill-icon" aria-hidden="true">🟢</div>
-            <h3 class="skill-name">Node.js</h3>
-            <p class="skill-level">Runtime & Backend Logic</p>
-          </div>
-
-          <!-- Skill Card 5 -->
-          <div class="skill-card" id="skill-express">
-            <div class="skill-icon" aria-hidden="true">🚂</div>
-            <h3 class="skill-name">Express.js</h3>
-            <p class="skill-level">REST APIs & Middleware</p>
-          </div>
-
-          <!-- Skill Card 6 -->
-          <div class="skill-card" id="skill-mongodb">
-            <div class="skill-icon" aria-hidden="true">🍃</div>
-            <h3 class="skill-name">MongoDB</h3>
-            <p class="skill-level">Atlas & Mongoose ODM</p>
-          </div>
-
-          <!-- Skill Card 7 -->
-          <div class="skill-card" id="skill-git">
-            <div class="skill-icon" aria-hidden="true">🐙</div>
-            <h3 class="skill-name">Git & GitHub</h3>
-            <p class="skill-level">Version Control & CI/CD</p>
-          </div>
-
-          <!-- Skill Card 8 -->
-          <div class="skill-card" id="skill-react">
-            <div class="skill-icon" aria-hidden="true">⚛️</div>
-            <h3 class="skill-name">React</h3>
-            <p class="skill-level">Component Architecture</p>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- =======================================================
-         5. PROJECTS SECTION (#projects)
-         ======================================================= -->
-    <section id="projects" class="section projects-section">
+    <!-- PROJECTS: grid injected by script.js -->
+    <section id="projects" class="section projects">
       <div class="container">
-        <div class="section-header">
-          <h2 class="section-title" id="projects-heading">Featured Projects</h2>
-          <p class="section-subtitle">A showcase of full-stack and web applications I've built</p>
-        </div>
-
-        <!-- 
-          Dynamic Projects Grid:
-          This container will be populated dynamically via JavaScript (js/projects.js) 
-          fetching project data from GET /api/projects in Step 6.
-        -->
-        <div id="projects-grid" class="projects-grid">
-          <!-- Dynamically populated by js/projects.js -->
-        </div>
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="projects-grid" id="projects-grid"></div>
       </div>
     </section>
 
-    <!-- =======================================================
-         6. CONTACT SECTION (#contact)
-         ======================================================= -->
-    <section id="contact" class="section contact-section">
+    <!-- SKILLS -->
+    <section id="skills" class="section skills">
       <div class="container">
-        <div class="section-header">
-          <h2 class="section-title" id="contact-heading">Get In Touch</h2>
-          <p class="section-subtitle">Have a question or want to work together? Send me a message!</p>
-        </div>
+        <h2 class="section-title">Skills &amp; Technologies</h2>
+        <ul class="skills-list">
+          <li tabindex="0" data-cat="lang">JavaScript</li>
+          <li tabindex="0" data-cat="lang">Python</li>
+          <li tabindex="0" data-cat="lang">C</li>
+          <li tabindex="0" data-cat="lang">C++</li>
+          <li tabindex="0" data-cat="frontend">HTML</li>
+          <li tabindex="0" data-cat="frontend">CSS</li>
+          <li tabindex="0" data-cat="backend">Node.js</li>
+          <li tabindex="0" data-cat="backend">Express.js</li>
+          <li tabindex="0" data-cat="backend">Flask</li>
+          <li tabindex="0" data-cat="db">MongoDB</li>
+          <li tabindex="0" data-cat="db">MySQL</li>
+          <li tabindex="0" data-cat="db">MariaDB</li>
+          <li tabindex="0" data-cat="db">SQL</li>
+          <li tabindex="0" data-cat="tools">Git &amp; GitHub</li>
+          <li tabindex="0" data-cat="tools">VS Code</li>
+          <li tabindex="0" data-cat="tools">Netlify</li>
+          <li tabindex="0" data-cat="tools">Vercel</li>
+          <li tabindex="0" data-cat="tools">Railway</li>
+          <li tabindex="0" data-cat="tools">Docker</li>
+        </ul>
+      </div>
+    </section>
 
-        <div class="contact-container">
+    <!-- CONTACT: two-column (info left, form right) -->
+    <section id="contact" class="section contact">
+      <div class="container">
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="contact-wrapper">
+          <div class="contact-info">
+            <h3>Let's collaborate</h3>
+            <p>Have a project in mind, an opportunity, or just want to connect? Reach out via any of these channels or
+              send a direct message!</p>
+            <div class="contact-links-list">
+              <div class="contact-item">
+                <span class="contact-label">GitHub</span>
+                <a href="https://github.com/Sannidhi2006" target="_blank"
+                  rel="noopener noreferrer">github.com/Sannidhi2006</a>
+              </div>
+              <div class="contact-item">
+                <span class="contact-label">LinkedIn</span>
+                <a href="https://linkedin.com/in/sannidhi-kamath-16234a338" target="_blank"
+                  rel="noopener noreferrer">linkedin.com/in/sannidhi-kamath-16234a338</a>
+              </div>
+              <div class="contact-item">
+                <span class="contact-label">Email</span>
+                <a href="mailto:kamathshinnu555@gmail.com">kamathshinnu555@gmail.com</a>
+              </div>
+              <div class="contact-item">
+                <span class="contact-label">Phone</span>
+                <a href="tel:+918431100137">+91 8431100137</a>
+              </div>
+            </div>
+          </div>
           <form id="contact-form" class="contact-form" novalidate>
-            <!-- Name Input -->
             <div class="form-group">
-              <label for="name" class="form-label">Your Name <span class="required-indicator">*</span></label>
-              <input type="text" id="name" name="name" class="form-input" placeholder="e.g. Alex Smith" required>
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" required placeholder="Your Full Name" autocomplete="name" />
             </div>
-
-            <!-- Email Input -->
             <div class="form-group">
-              <label for="email" class="form-label">Your Email <span class="required-indicator">*</span></label>
-              <input type="email" id="email" name="email" class="form-input" placeholder="e.g. alex@example.com" required>
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required placeholder="your.email@example.com"
+                autocomplete="email" />
             </div>
-
-            <!-- Message Textarea -->
             <div class="form-group">
-              <label for="message" class="form-label">Your Message <span class="required-indicator">*</span></label>
-              <textarea id="message" name="message" class="form-textarea" rows="6" placeholder="Write your message here..." required></textarea>
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="5" required
+                placeholder="What would you like to build or discuss?"></textarea>
             </div>
-
-            <!-- Submit Button -->
-            <div class="form-actions">
-              <button type="submit" id="contact-submit-btn" class="btn btn-primary btn-submit">
-                <span class="btn-text">Send Message</span>
-              </button>
-            </div>
-
-            <!-- Status Container for Success/Error Notifications -->
-            <div id="form-status" class="form-status" aria-live="polite"></div>
+            <button type="submit" class="btn-primary" id="contact-submit">Send Message</button>
           </form>
         </div>
       </div>
     </section>
 
+    <!-- RESUME -->
+    <section id="resume" class="section resume">
+      <div class="container">
+        <h2 class="section-title">Resume</h2>
+        <p class="resume-intro">Download my full resume or view it online to learn more about my experience and
+          technical background.</p>
+        <div class="resume-actions">
+          <a href="assets/resume/resume.pdf" target="_blank" rel="noopener noreferrer" class="btn-primary">View
+            Resume</a>
+          <a href="assets/resume/resume.pdf" download="Sannidhi_Naveen_Kamath_Resume.pdf" class="btn-secondary">Download
+            Resume</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <p>Designed &amp; Built by Sannidhi Naveen Kamath</p>
+        <p>&copy; 2026 Sannidhi. All rights reserved.</p>
+        <p>
+          <a href="https://github.com/Sannidhi2006" target="_blank" rel="noopener noreferrer">GitHub</a>
+          &nbsp;|&nbsp;
+          <a href="https://linkedin.com/in/sannidhi-kamath-16234a338" target="_blank"
+            rel="noopener noreferrer">LinkedIn</a>
+        </p>
+      </div>
+    </footer>
+
   </main>
-
-  <!-- =========================================================
-       7. FOOTER
-       ========================================================= -->
-  <footer id="footer" class="site-footer">
-    <div class="container footer-container">
-      <!-- Social Media Navigation Links -->
-      <div class="footer-socials" aria-label="Social media links">
-        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-link" id="footer-github" aria-label="GitHub Profile">
-          GitHub
-        </a>
-        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-link" id="footer-linkedin" aria-label="LinkedIn Profile">
-          LinkedIn
-        </a>
-        <a href="mailto:janedoe@example.com" class="social-link" id="footer-email" aria-label="Send Email">
-          Email
-        </a>
-      </div>
-
-      <!-- Copyright Information -->
-      <div class="footer-copyright">
-        <p>&copy; 2026 Jane Doe. All rights reserved. Built with Node.js, Express, MongoDB &amp; Vanilla JS.</p>
-      </div>
-    </div>
-  </footer>
-
-  <!-- =========================================================
-       JAVASCRIPT MODULES (Deferred)
-       ========================================================= -->
-  <script defer src="js/main.js"></script>
-  <script defer src="js/projects.js"></script>
-  <script defer src="js/contact.js"></script>
-
+  <script src="script.js"></script>
 </body>
+
 </html>
